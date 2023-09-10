@@ -48,7 +48,7 @@ namespace BossaboxBackendChallenge.Test
 
             var consultTool = service.FindToolByTag("ide");
 
-            Assert.Equal(1, consultTool.Count());
+            Assert.Single(consultTool);
             Assert.Contains(tool, consultTool);
         }
 

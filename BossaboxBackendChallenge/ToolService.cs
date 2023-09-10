@@ -31,7 +31,7 @@
             return _repositorio.FirstOrDefault(tool => tool.Id == id);
         }
 
-        public List<Tool> FindToolByTag(string tagName)
+        public List<Tool> FindAllToolByTag(string tagName)
         {
             return _repositorio.Where(tool => tool.Tags.Contains(tagName)).ToList();
         }
