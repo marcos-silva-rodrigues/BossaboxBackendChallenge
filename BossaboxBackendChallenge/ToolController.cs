@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace BossaboxBackendChallenge.Test
 {
 
+    [Route("api/[controller]")]
     [ApiController]
-    [Route("[controller")]
     public class ToolController: ControllerBase
     {
         private readonly IToolService _toolService;
@@ -26,7 +26,7 @@ namespace BossaboxBackendChallenge.Test
         }
 
 
-        [HttpGet("/{id}")]
+        [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetToolById(Guid id)
         {
