@@ -20,5 +20,23 @@ namespace BossaboxBackendChallenge.Test
             Assert.Contains("ide", tool.Tags);
             Assert.Contains(".net", tool.Tags);
         }
+
+        [Fact]
+        public void ShouldGetToolCreated()
+        {
+            ToolService service = new ToolService();
+            var tool = service.CreateTool("Visual Studio",
+                "https://visualstudio.microsoft.com/pt-br/vs/",
+                "power idem for c sharp", new[] { "ide", "microsoft", "chsarp", ".net" });
+
+            Assert.NotNull(tool);
+
+            var consultTool = service.FindToolById(tool.Id);
+
+            Assert.NotNull(consultTool);
+            Assert.Equal(tool.Id, consultTool.Id);
+            Assert.True(consultTool.Equals(tool));
+
+        }
     }
 }
