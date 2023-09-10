@@ -48,7 +48,21 @@ namespace BossaboxBackendChallenge.Test
             AssertEquals(tool, consultTool);
         }
 
-        public void AssertEquals(Tool expected, Tool actual)
+        [Fact]
+        public void ShouldDeleteToolById()
+        {
+            ToolService service = new ToolService();
+            var tool = service.CreateTool("Visual Studio",
+                "https://visualstudio.microsoft.com/pt-br/vs/",
+                "power idem for c sharp", new[] { "ide", "microsoft", "chsarp", ".net" });
+
+            service.DeleteById(tool.Id);
+            var consultTool = service.FindToolById(tool.Id);
+
+            Assert.Null(consultTool);
+        }
+
+        internal void AssertEquals(Tool expected, Tool actual)
         {
             Assert.NotNull(expected);
             Assert.NotNull(actual);
