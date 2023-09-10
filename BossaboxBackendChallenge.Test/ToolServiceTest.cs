@@ -2,6 +2,7 @@ namespace BossaboxBackendChallenge.Test
 {
     public class ToolServiceTest
     {
+
         [Fact]
         public void ShouldReturnNewTool()
         {
@@ -29,14 +30,31 @@ namespace BossaboxBackendChallenge.Test
                 "https://visualstudio.microsoft.com/pt-br/vs/",
                 "power idem for c sharp", new[] { "ide", "microsoft", "chsarp", ".net" });
 
-            Assert.NotNull(tool);
-
             var consultTool = service.FindToolById(tool.Id);
 
-            Assert.NotNull(consultTool);
-            Assert.Equal(tool.Id, consultTool.Id);
-            Assert.True(consultTool.Equals(tool));
-
+            AssertEquals(tool, consultTool);
         }
+
+        [Fact]
+        public void ShouldReturnToolByTag()
+        {
+            ToolService service = new ToolService();
+            var tool = service.CreateTool("Visual Studio",
+                "https://visualstudio.microsoft.com/pt-br/vs/",
+                "power idem for c sharp", new[] { "ide", "microsoft", "chsarp", ".net" });
+
+            var consultTool = service.FindToolByTag("ide");
+
+            AssertEquals(tool, consultTool);
+        }
+
+        public void AssertEquals(Tool expected, Tool actual)
+        {
+            Assert.NotNull(expected);
+            Assert.NotNull(actual);
+            Assert.Equal(expected.Id, actual.Id);
+            Assert.True(expected.Equals(actual));
+        }
+
     }
 }
