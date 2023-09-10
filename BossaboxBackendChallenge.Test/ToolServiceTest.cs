@@ -46,7 +46,7 @@ namespace BossaboxBackendChallenge.Test
                 "https://visualstudio.microsoft.com/pt-br/vs/",
                 "power idem for c sharp", new[] { "ide", "microsoft", "chsarp", ".net" });
 
-            var consultTool = service.FindToolByTag("ide");
+            var consultTool = service.FindAllToolByTag("ide");
 
             Assert.Single(consultTool);
             Assert.Contains(tool, consultTool);

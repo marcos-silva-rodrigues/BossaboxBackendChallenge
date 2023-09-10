@@ -1,6 +1,6 @@
 ﻿namespace BossaboxBackendChallenge
 {
-    public class ToolService
+    public class ToolService: IToolService
     {
         private List<Tool> _repositorio;
 
