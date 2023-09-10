@@ -32,11 +32,14 @@ namespace BossaboxBackendChallenge.Test
 
             var consultTool = service.FindToolById(tool.Id);
 
-            AssertEquals(tool, consultTool);
+            Assert.NotNull(tool);
+            Assert.NotNull(consultTool);
+            Assert.Equal(tool.Id, consultTool.Id);
+            Assert.True(tool.Equals(consultTool));
         }
 
         [Fact]
-        public void ShouldReturnToolByTag()
+        public void ShouldReturnAllToolByTag()
         {
             ToolService service = new ToolService();
             var tool = service.CreateTool("Visual Studio",
@@ -45,7 +48,8 @@ namespace BossaboxBackendChallenge.Test
 
             var consultTool = service.FindToolByTag("ide");
 
-            AssertEquals(tool, consultTool);
+            Assert.Equal(1, consultTool.Count());
+            Assert.Contains(tool, consultTool);
         }
 
         [Fact]
@@ -60,14 +64,6 @@ namespace BossaboxBackendChallenge.Test
             var consultTool = service.FindToolById(tool.Id);
 
             Assert.Null(consultTool);
-        }
-
-        internal void AssertEquals(Tool expected, Tool actual)
-        {
-            Assert.NotNull(expected);
-            Assert.NotNull(actual);
-            Assert.Equal(expected.Id, actual.Id);
-            Assert.True(expected.Equals(actual));
         }
 
     }
