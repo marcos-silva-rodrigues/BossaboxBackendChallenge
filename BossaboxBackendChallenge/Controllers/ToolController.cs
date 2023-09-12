@@ -1,13 +1,12 @@
-﻿
-
+﻿using BossaboxBackendChallenge.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BossaboxBackendChallenge.Test
+namespace BossaboxBackendChallenge.Controllers
 {
 
     [Route("api/[controller]")]
     [ApiController]
-    public class ToolController: ControllerBase
+    public class ToolController : ControllerBase
     {
         private readonly IToolService _toolService;
         public ToolController(IToolService toolService)
@@ -43,7 +42,7 @@ namespace BossaboxBackendChallenge.Test
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult GetAllToolsByTag([FromQuery] string  tag)
+        public ActionResult GetAllToolsByTag([FromQuery] string tag)
         {
             var tool = _toolService.FindAllToolByTag(tag);
             if (tool.Count == 0)

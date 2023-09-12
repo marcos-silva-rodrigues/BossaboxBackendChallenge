@@ -1,3 +1,5 @@
+using BossaboxBackendChallenge.Services;
+
 namespace BossaboxBackendChallenge.Test
 {
     public class ToolServiceTest

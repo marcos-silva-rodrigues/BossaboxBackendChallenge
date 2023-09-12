@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BossaboxBackendChallenge.Model;
+using BossaboxBackendChallenge.Controllers;
+using BossaboxBackendChallenge.Services;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 using System;
 using System.Collections.Generic;

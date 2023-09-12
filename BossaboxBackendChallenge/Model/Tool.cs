@@ -1,4 +1,4 @@
-﻿namespace BossaboxBackendChallenge
+﻿namespace BossaboxBackendChallenge.Model
 {
     public class Tool
     {
@@ -10,11 +10,11 @@
 
         public Tool(string title, string link, string description, string[] tags)
         {
-            this.Id = Guid.NewGuid();
-            this.Title = title;
-            this.Link = link;
-            this.Description = description;
-            this.Tags = tags;
+            Id = Guid.NewGuid();
+            Title = title;
+            Link = link;
+            Description = description;
+            Tags = tags;
         }
 
         public override bool Equals(object? obj)

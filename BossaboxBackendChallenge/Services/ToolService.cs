@@ -1,12 +1,14 @@
-﻿namespace BossaboxBackendChallenge
+﻿using BossaboxBackendChallenge.Model;
+
+namespace BossaboxBackendChallenge.Services
 {
-    public class ToolService: IToolService
+    public class ToolService : IToolService
     {
         private List<Tool> _repositorio;
 
         public ToolService()
         {
-            this._repositorio = new List<Tool>();
+            _repositorio = new List<Tool>();
         }
         public Tool CreateTool(string title, string link, string description, string[] tags)
         {

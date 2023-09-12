@@ -1,4 +1,6 @@
-﻿namespace BossaboxBackendChallenge
+﻿using BossaboxBackendChallenge.Model;
+
+namespace BossaboxBackendChallenge.Services
 {
     public interface IToolService
     {

@@ -1,4 +1,4 @@
-using BossaboxBackendChallenge;
+using BossaboxBackendChallenge.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
