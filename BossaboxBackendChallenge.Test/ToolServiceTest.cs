@@ -53,17 +53,28 @@ namespace BossaboxBackendChallenge.Test
         }
 
         [Fact]
-        public void ShouldDeleteToolById()
+        public void ShouldReturnTrueIfDeleteToolById()
         {
             ToolService service = new ToolService();
             var tool = service.CreateTool("Visual Studio",
                 "https://visualstudio.microsoft.com/pt-br/vs/",
                 "power idem for c sharp", new[] { "ide", "microsoft", "chsarp", ".net" });
 
-            service.DeleteById(tool.Id);
+            var response = service.DeleteById(tool.Id);
+            Assert.True(response);
             var consultTool = service.FindToolById(tool.Id);
 
             Assert.Null(consultTool);
+        }
+
+        [Fact]
+        public void ShouldReturnFalseIfNotFindToolById()
+        {
+            ToolService service = new ToolService();
+
+            var response = service.DeleteById(Guid.NewGuid());
+
+            Assert.False(response);
         }
 
     }

@@ -28,9 +28,46 @@ namespace BossaboxBackendChallenge.Test
 
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public IActionResult GetToolById(Guid id)
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult GetToolById(Guid id)
         {
-            throw new NotImplementedException();
+            var tool = _toolService.FindToolById(id);
+            if (tool == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(tool);
         }
+
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult GetAllToolsByTag([FromQuery] string  tag)
+        {
+            var tool = _toolService.FindAllToolByTag(tag);
+            if (tool.Count == 0)
+            {
+                return NotFound();
+            }
+
+            return Ok(tool);
+        }
+
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult DeleteToolByID(Guid id)
+        {
+            var success = _toolService.DeleteById(id);
+            if (success)
+            {
+                return NoContent();
+            }
+
+            return NotFound();
+        }
+
+
     }
 }

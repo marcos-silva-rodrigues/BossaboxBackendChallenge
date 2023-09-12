@@ -20,10 +20,15 @@
             return newTool;
         }
 
-        public void DeleteById(Guid id)
+        public bool DeleteById(Guid id)
         {
             var tool = _repositorio.FirstOrDefault(tool => tool.Id == id);
-            _repositorio.Remove(tool);
+            if (tool != null)
+            {
+                _repositorio.Remove(tool);
+                return true;
+            }
+            return false;
         }
 
         public Tool? FindToolById(Guid id)
