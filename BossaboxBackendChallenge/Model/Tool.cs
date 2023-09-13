@@ -1,4 +1,6 @@
-﻿namespace BossaboxBackendChallenge.Model
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace BossaboxBackendChallenge.Model
 {
     public class Tool
     {
@@ -6,7 +8,13 @@
         public string Title { get; set; }
         public string Link { get; set; }
         public string Description { get; set; }
-        public string[] Tags { get; set; }
+        private List<Tag> _tags { get; set; }
+
+        public virtual string[] Tags { get
+            {
+                return _tags.Select(tag => tag.Name).ToArray();
+            } }
+
 
         public Tool(string title, string link, string description, string[] tags)
         {
@@ -14,7 +22,11 @@
             Title = title;
             Link = link;
             Description = description;
-            Tags = tags;
+            _tags = new List<Tag>() { };
+            foreach (var tag in tags)
+            {
+                _tags.Add(new Tag(tag));
+            }
         }
 
         public override bool Equals(object? obj)
