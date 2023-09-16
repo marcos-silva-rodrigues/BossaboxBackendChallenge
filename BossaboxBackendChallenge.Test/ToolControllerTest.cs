@@ -18,13 +18,15 @@ namespace BossaboxBackendChallenge.Test
         public void ShouldReturnCreatedStatusForNewTool()
         {
             var mockServ = new Mock<IToolService>();
+            var tool = new Tool("vscode", "vscode", "vscode");
+                tool.Tags.Add(new Tag("vscode"));
             mockServ.Setup(service =>
                 service.CreateTool(
                     It.IsAny<string>(),
                     It.IsAny<string>(),
                     It.IsAny<string>(),
                     It.IsAny<string[]>()
-                    )).Returns(new Tool("vscode", "vscode", "vscode", new[] { "vscode" }));
+                    )).Returns(tool);
             var controller = new ToolController(mockServ.Object);
 
             CreatedToolDto mockRequestBody = new CreatedToolDto
@@ -45,7 +47,8 @@ namespace BossaboxBackendChallenge.Test
         [Fact]
         public void ShouldReturnToolWithStatus200()
         {
-            var mockTool = new Tool("vscode", "vscode", "vscode", new[] { "vscode" });
+            var mockTool = new Tool("vscode", "vscode", "vscode");
+            mockTool.Tags.Add(new Tag("vscode"));
             var mockServ = new Mock<IToolService>();
             mockServ.Setup(service =>
                 service.FindToolById(mockTool.Id)).Returns(mockTool);
@@ -76,8 +79,12 @@ namespace BossaboxBackendChallenge.Test
         [Fact]
         public void ShouldReturnAllToolByTag()
         {
-            var mockTool1 = new Tool("visualstudio", "vscode", "visualstudio", new[] { "ide", });
-            var mockTool2 = new Tool("vscode", "vscode", "vscode", new[] { "ide" });
+            var tag = new Tag("ide");
+            var mockTool1 = new Tool("visualstudio", "vscode", "visualstudio");
+            mockTool1.Tags.Add(tag);
+            var mockTool2 = new Tool("vscode", "vscode", "vscode");
+            mockTool2.Tags.Add(tag);
+
             var responseMock = new List<Tool>() { mockTool1, mockTool2 };
             var mockServ = new Mock<IToolService>();
             mockServ.Setup(service =>

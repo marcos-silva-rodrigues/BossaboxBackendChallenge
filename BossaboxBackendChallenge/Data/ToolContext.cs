@@ -7,18 +7,19 @@ namespace BossaboxBackendChallenge.Data
 {
     public class ToolContext: DbContext
     {
-        public DbSet<Tag> Blogs { get; set; }
-        public DbSet<Tool> Posts { get; set; }
+        public DbSet<Tag> Tags { get; set; }
+        public DbSet<Tool> Tools { get; set; }
 
-        public string DbPath { get; }
-        public ToolContext()
+        public ToolContext(DbContextOptions<ToolContext> options)
+        : base(options)
         {
-            var folder = Environment.SpecialFolder.LocalApplicationData;
-            var path = Environment.GetFolderPath(folder);
-            DbPath = Path.Join(path, "blogging.db");
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
-      => options.UseSqlite($"Data Source={DbPath}");
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Tool>()
+                    .HasMany(tool => tool.Tags)
+                    .WithMany(tag => tag.Tools);
+        }
     }
 }

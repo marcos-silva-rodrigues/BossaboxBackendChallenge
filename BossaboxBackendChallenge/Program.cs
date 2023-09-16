@@ -1,4 +1,7 @@
+using BossaboxBackendChallenge.Data;
 using BossaboxBackendChallenge.Services;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddTransient<IToolService, ToolService>();
+builder.Services.AddDbContext<ToolContext>(opt => opt.UseSqlite($"Data Source=../challenge.db"));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
