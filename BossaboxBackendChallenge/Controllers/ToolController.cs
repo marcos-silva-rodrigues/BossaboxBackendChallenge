@@ -1,10 +1,12 @@
-﻿using BossaboxBackendChallenge.Services;
+﻿using BossaboxBackendChallenge.Model;
+using BossaboxBackendChallenge.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BossaboxBackendChallenge.Controllers
 {
 
     [Route("api/[controller]")]
+    [Produces("application/json")]
     [ApiController]
     public class ToolController : ControllerBase
     {
@@ -16,9 +18,9 @@ namespace BossaboxBackendChallenge.Controllers
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public ActionResult CreateToll([FromBody] CreatedToolDto dto)
+        public ActionResult<Tool> CreateToll([FromBody] CreatedToolDto dto)
         {
-            var tool = _toolService.CreateTool(dto.Title, dto.Link, dto.Description, dto.Tags); ;
+            var tool = _toolService.CreateTool(dto.Title, dto.Link, dto.Description, dto.Tags);
 
             return CreatedAtAction(nameof(GetToolById), new { id = tool.Id }, tool);
 
@@ -28,7 +30,7 @@ namespace BossaboxBackendChallenge.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult GetToolById(Guid id)
+        public ActionResult<Tool> GetToolById(Guid id)
         {
             var tool = _toolService.FindToolById(id);
             if (tool == null)
@@ -42,7 +44,7 @@ namespace BossaboxBackendChallenge.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult GetAllToolsByTag([FromQuery] string tag)
+        public ActionResult<List<Tool>> GetAllToolsByTag([FromQuery] string tag)
         {
             var tool = _toolService.FindAllToolByTag(tag);
             if (tool.Count == 0)
