@@ -1,5 +1,7 @@
 ﻿using BossaboxBackendChallenge.Data;
 using BossaboxBackendChallenge.Model;
+using Microsoft.EntityFrameworkCore;
+using System.Xml.Linq;
 
 namespace BossaboxBackendChallenge.Services
 {
@@ -22,8 +24,7 @@ namespace BossaboxBackendChallenge.Services
 
             foreach (var tagName in tags)
             {
-                var tag = new Tag(tagName);
-                _context.Tags.Add(tag);
+                var tag = CreateOrReturnTag(tagName);
                 newTool.Tags.Add(tag);
             }
             _context.Tools.Add(newTool);
@@ -45,16 +46,32 @@ namespace BossaboxBackendChallenge.Services
 
         public Tool? FindToolById(Guid id)
         {
-            return _context.Tools.FirstOrDefault(tool => tool.Id == id);
+            return _context.Tools.Include(tool => tool.Tags).FirstOrDefault(tool => tool.Id == id);
         }
 
         public List<Tool> FindAllToolByTag(string tagName)
         {
-            var result = _context.Tags.Where(tag => tag.Name == tagName).FirstOrDefault();
+            var result = _context.Tags.Where(tag => tag.Name.ToLower() == tagName.ToLower()).FirstOrDefault();
             if (result == null) return new List<Tool>();
 
-            return _context.Tools.Where(tool => tool.Tags.Contains(result)).ToList();
+            return _context.Tools.Include(tool => tool.Tags).Where(tool => tool.Tags.Contains(result)).ToList();
 
+        }
+
+        private Tag CreateOrReturnTag(string name)
+        {
+            Tag? tag =  _context.Tags.Where
+                (tag => tag.Name.ToLower() == name.ToLower())
+                .FirstOrDefault();
+
+            if (tag == null)
+            {
+                var creatdTag = new Tag(name);
+                _context.Tags.Add(creatdTag);
+                return creatdTag;
+            }
+
+            return tag;
         }
     }
 }

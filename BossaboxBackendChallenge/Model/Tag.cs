@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace BossaboxBackendChallenge.Model
 {
@@ -9,7 +10,8 @@ namespace BossaboxBackendChallenge.Model
         public Guid Id { get; set; }
         public string Name { get; set; }
 
-        public virtual List<Tool> Tools { get; } = new();
+        [JsonIgnore]
+        public virtual ICollection<Tool> Tools { get; set; }
 
         public Tag(string name)
         {

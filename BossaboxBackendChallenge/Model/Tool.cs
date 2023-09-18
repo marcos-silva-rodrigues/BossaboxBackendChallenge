@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace BossaboxBackendChallenge.Model
@@ -13,19 +12,21 @@ namespace BossaboxBackendChallenge.Model
         public string Link { get; set; }
         public string Description { get; set; }
 
+
         [JsonIgnore]
-        public virtual List<Tag> Tags { get; } = new();
+        public virtual ICollection<Tag> Tags { get; set; }
 
         [JsonPropertyName("tags")]
-        public virtual string[] tagsName { get
-            {
-                return Tags.Select(t => t.Name).ToArray();
+        public virtual string[] TagsName { get { 
+                return Tags.Select(t => t.Name).ToArray();  
             } }
+
         public Tool(string title, string link, string description)
         {
             Title = title;
             Link = link;
             Description = description;
+            Tags = new List<Tag>();
         }
 
         public override bool Equals(object? obj)

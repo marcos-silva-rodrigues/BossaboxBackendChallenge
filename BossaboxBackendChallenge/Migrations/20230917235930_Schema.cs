@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BossaboxBackendChallenge.Migrations
 {
     /// <inheritdoc />
-    public partial class CreateSchema : Migration
+    public partial class Schema : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BossaboxBackendChallenge.Migrations
 {
     [DbContext(typeof(ToolContext))]
-    [Migration("20230916225419_CreateSchema")]
-    partial class CreateSchema
+    [Migration("20230917235930_Schema")]
+    partial class Schema
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
